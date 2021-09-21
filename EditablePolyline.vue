@@ -10,22 +10,24 @@
                 :weight="editablePolylineOptions.line.weight"
         >
         </l-polyline>
+      <template v-if="zoom >= editablePolylineOptions.displayZoom">
         <l-marker
-                v-if="zoom >= editablePolylineOptions.displayZoom"
-                v-for="(item, index) in editablePolylinelatlngs"
-                :lat-lng="item"
-                :draggable="true"
-                @dblclick="removeEditablePolylineLatLang($event, item, index)"
-                @drag="updateEditablePolylineLatLangs($event, item, index)"
-                @dragend="checkForAddPiontToEditablePolylineLatLangs($event, item, index)">
-            <l-icon
-                    :icon-url="getEditablePolylineNodeImg(index)"
-                    :icon-size="editablePolylineOptions.iconSize"
-                    :icon-anchor="editablePolylineOptions.iconAnchor"
-            >
-                <img :src="getEditablePolylineNodeImg(index)" alt="" />
-            </l-icon>
+            v-for="(item, index) in editablePolylinelatlngs"
+            :key="index"
+            :lat-lng="item"
+            :draggable="true"
+            @dblclick="removeEditablePolylineLatLang($event, item, index)"
+            @drag="updateEditablePolylineLatLangs($event, item, index)"
+            @dragend="checkForAddPiontToEditablePolylineLatLangs($event, item, index)">
+          <l-icon
+              :icon-url="getEditablePolylineNodeImg(index)"
+              :icon-size="editablePolylineOptions.iconSize"
+              :icon-anchor="editablePolylineOptions.iconAnchor"
+          >
+            <img :src="getEditablePolylineNodeImg(index)" alt="" />
+          </l-icon>
         </l-marker>
+      </template>
     </div>
 </template>
 
