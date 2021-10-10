@@ -40,7 +40,7 @@
         props: {
             latlngs: {
                 type: Array,
-                default: []
+                default: () => []
             },
             zoom: {
                 type: Number,
@@ -48,22 +48,24 @@
             },
             center: {
                 type: Object,
-                default: { lat: 0, lng: 0}
+                default: () => { return {lat: 0, lng: 0} }
             },
             editablePolylineOptions: {
                 type: Object,
-                default: {
+                default: () => {
+                  return {
                     line: {
-                        color: 'red',
-                        className: '',
-                        bubblingMouseEvents: false,
-                        weight: 5,
-                        dashArray: '4 2 8',
-                        dashOffset: '0'
+                      color: 'red',
+                      className: '',
+                      bubblingMouseEvents: false,
+                      weight: 5,
+                      dashArray: '4 2 8',
+                      dashOffset: '0'
                     },
                     displayZoom: 6,
                     iconSize: [16, 16],
                     iconAnchor: [10, 10]
+                  }
                 }
             }
         },
