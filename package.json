@@ -1,20 +1,61 @@
 {
   "name": "vue-leaflet-editable-polyline",
   "version": "0.2.3",
+  "private": true,
   "description": "editable polyline for leaflet in vue",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "krasus"
+  "author": {
+    "name": "a.esmaeeli"
   },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "leaflet": "^1.9.3",
+    "vue": "^2.6.14",
+    "vue2-leaflet": "^2.7.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "_id": "vue-leaflet-editable-polyline@0.2.3",
+  "homepage": "https://github.com/kerasus/vue-leaflet-editable-polyline",
   "keywords": [
     "vue-leaflet-editable-polyline"
   ],
-  "author": "a.esmaeeli",
   "license": "MIT",
-  "homepage": "https://github.com/kerasus/vue-leaflet-editable-polyline",
-  "dependencies": {
-    "vue": "^2.6.12",
-    "vue2-leaflet": "^2.5.2"
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "krasus"
   }
 }

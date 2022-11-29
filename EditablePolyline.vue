@@ -90,7 +90,7 @@
                 this.$emit('update:latlngs', this.editablePolylinelatlngs)
             },
             getEditablePolylineNodeImg(index) {
-                if(index % 2 === 0) {
+              if(index % 2 === 0) {
                     return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IArs4c6QAAAAZiS0dEAP4ACgAK4wU5iwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB90EFQswOAsixbAAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAABDUlEQVQY042QMUoEURBEq3sQ9jeyGm86IpOIycI/gAaCF9gTGHoDzyDew8hMBhSM5ggjbLCZijCDyZ/E32Ww4wauwb6kg6pquloAIIeAYhjgZqcgz+leisgHVJ81pReMiJsBwB7JBwEuGCOkLIGuA5sG0vdLqsYipQ7j5tc8m7mvViRJJzczLxbuITCb7cPNrvJ0Su97/sV9HfP5nD6Z3MFDeMwx/qr8J0Gva2bVd6X7sVTV2ECwhQikqoCiOFBR/WTbrgVy20yCbQvk/I1sdrPTzSHcw80Ocwjc4RsnAgBuVpJcCgDGSClLQdeRTSPS94Dqmab0tGmUQxAA1wJcgjyCyBtFapC3xTB8AcAPM3L4CmzlQRcAAAAASUVORK5CYII=';
                 } else {
                     return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gEEBgwnW9DvzQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAEPSURBVBjTbZBBSkJxGMR/89cQnxAKFdQiCTeK0M5c1y08iifwPO46QIgHUJQWlctQ1E1P1N6bFiooNsuZH/N9jDhSGkWX2FdO04KkNSHMQhzPD7n2kGw/Ca7dbKJKBeZz3O+jxeLHIbxl4ngrgCSff6ZUKqjXQ+Uy3rcYcKuFul0svSqNontns4+aTFCxePwVtpGEGw0YDD4D9i212g60T2BJO6/TwZvNXXCaFlStHlLOJKFqFTKZi6AQNh6PD3fPYRuPx5AkabD0zWiEl8uzZts7r91Gudw0CL7YbnG9jieTHXT0QtpqwXCIpffDzpHtFwH/7Awh9EMcz07uJvn8g+AGu4C0tjTF/sisVr8Af3fdgpLllLoZAAAAAElFTkSuQmCC'
