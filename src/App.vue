@@ -4,27 +4,28 @@
         <button @click="enough" style="background-color: orangered">stop add marker</button>
         <l-map style="height: 100vh;"
                ref="lMap"
-               :zoom.sync="zoom"
-               :center.sync="center"
+               v-model:zoom="zoom"
+               v-model:center="center"
                :min-zoom="minZoom"
                :max-zoom="maxZoom"
-               :options.sync="mapOptions"
+               v-model:options="mapOptions"
                :maxBoundsViscosity="maxBoundsViscosity"
                :crs="crs"
                @click="mapClick($event)"
                @update:zoom="zoomUpdated">
             <l-tile-layer :url="url"/>
             <editable-polyline ref="editablePolyline"
-                               :latlngs.sync="adminToolBox.polyline.latlngs"
+                               v-model:latlngs="adminToolBox.polyline.latlngs"
                                :editablePolylineOptions="adminToolBox.polyline.data"
                                :visible="adminToolBox.polyline.editMode"
+                               @update:latlngs="newLatlngs"
             />
         </l-map>
     </div>
 </template>
 
 <script>
-import {LMap, LTileLayer} from 'vue2-leaflet'
+import {LMap, LTileLayer} from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L, {CRS, latLng} from 'leaflet'
 import EditablePolyline from '../EditablePolyline'
@@ -106,6 +107,32 @@ export default {
                         iconAnchor: [10, 10]
                     },
                     latlngs: [],
+                    // latlngs: [
+                    //     {
+                    //         "lat": -12897.3115234375,
+                    //         "lng": 21054.05078125
+                    //     },
+                    //     {
+                    //         "lat": -12897.216796875,
+                    //         "lng": 21054.01416015625
+                    //     },
+                    //     {
+                    //         "lat": -12897.11474609375,
+                    //         "lng": 21054.03464453125
+                    //     },
+                    //     {
+                    //         "lat": -12897.096509325,
+                    //         "lng": 21054.0468515625
+                    //     },
+                    //     {
+                    //         "lat": -12897.091796875,
+                    //         "lng": 21054.06982421875
+                    //     },
+                    //     // {
+                    //     //     "lat": -12897.35595703125,
+                    //     //     "lng": 21054.2490234375
+                    //     // }
+                    // ],
                     editMode: true,
                     tags: [],
                     type: {
@@ -117,11 +144,16 @@ export default {
         }
     },
     created() {
+        // console.log(document.getElementsByClassName("leaflet-interactive"))
         this.crs = this.getCRS([0.00000000, -15426.00000000, 26934.00000000, 0.00000000]);
         this.bounds = [[-20140, 920], [-920, 28650]]; // down - left - up - right
         this.center = latLng(-12897.3, 21054.1);
     },
     methods: {
+        newLatlngs(latlngs) {
+            this.adminToolBox.polyline.latlngs = latlngs
+            // console.log(document.getElementsByClassName("leaflet-interactive"))
+        },
         addMarker() {
             this.enableToAddMarker = true
         },
@@ -135,14 +167,14 @@ export default {
             if (this.enableToAddMarker && event.latlng) {
                 let lat = event.latlng.lat,
                     lng = event.latlng.lng,
-                    newPolyline = L.latLng(lat, lng)
-                this.adminToolBox.polyline.latlngs.push(newPolyline)
+                    // newPolyline = L.latLng(lat, lng)
+                    newMarker = [lat, lng]
+                this.adminToolBox.polyline.latlngs.push(newMarker)
                 const index = this.adminToolBox.polyline.latlngs.length - 1
                 if (index > 0) {
                     this.$refs.editablePolyline.addMidPointToEditablePolyline(index)
                 }
             }
-            console.log(this.adminToolBox.polyline.latlngs)
         },
         getCRS(mapExtent) {
             let mapMaxZoom = 10,

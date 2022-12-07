@@ -1,23 +1,24 @@
 <template>
     <div>
         <l-polyline
-            :lat-lngs="editablePolylinelatlngs"
+            :lat-lngs="latlngs"
             :color="editablePolylineOptions.line.color"
             :className="editablePolylineOptions.line.className"
             :bubblingMouseEvents="editablePolylineOptions.line.bubblingMouseEvents"
             :dashArray="editablePolylineOptions.line.dashArray"
             :dashOffset="editablePolylineOptions.line.dashOffset"
             :weight="editablePolylineOptions.line.weight"
+            :key="count"
         >
         </l-polyline>
         <template v-if="zoom >= editablePolylineOptions.displayZoom">
             <l-marker
-                v-for="(item, index) in editablePolylinelatlngs"
+                v-for="(item, index) in latlngs"
                 :key="index"
                 :lat-lng="item"
                 :draggable="true"
                 @dblclick="removeEditablePolylineLatLang($event, item, index)"
-                @drag="updateEditablePolylineLatLangs($event, item, index)"
+                @drag="updateEditablePolylineLatLangs($event, index)"
                 @dragend="checkForAddPointToEditablePolylineLatLangs(index)">
                 <l-icon
                     :icon-url="getEditablePolylineNodeImg(index)"
@@ -32,11 +33,11 @@
 </template>
 
 <script>
-import Vue from "vue";
-import {LMarker, LPolyline, LIcon} from 'vue2-leaflet'
+import {LMarker, LPolyline, LIcon} from '@vue-leaflet/vue-leaflet'
 
 export default {
     name: "EditablePolyline",
+    emits: ['update:latlngs'],
     props: {
         latlngs: {
             type: Array,
@@ -78,18 +79,22 @@ export default {
     },
     data() {
         return {
-            editablePolylinelatlngs: []
+            editablePolylinelatlngs: [],
+            count: 0
         }
     },
     watch: {
-        latlngs(to) {
-            console.log(to)
-            this.editablePolylinelatlngs = to;
+        latlngs: {
+            handler(to) {
+                console.log(to)
+                this.count++
+                this.editablePolylinelatlngs = to
+            },
+            deep: true
         }
     },
     methods: {
         updateLatlng() {
-            // this.latlngs = this.editablePolylinelatlngs;
             this.$emit('update:latlngs', this.editablePolylinelatlngs)
         },
         getEditablePolylineNodeImg(index) {
@@ -138,7 +143,9 @@ export default {
             this.updateLatlng();
         },
         updateEditablePolylineLatLangs(event, item, index) {
-            Vue.set(this.editablePolylinelatlngs, index, event.latlng);
+            const lat = event.latlng.lat,
+                lng = event.latlng.lng
+            this.editablePolylinelatlngs[index] = [lat, lng]
             this.updateLatlng();
         },
         addMidPointToEditablePolyline(index) {
@@ -146,7 +153,7 @@ export default {
                 latlangIndex = this.editablePolylinelatlngs[index],
                 mid1 = this.calcMiddlePoint(latlang1, latlangIndex)
             this.editablePolylinelatlngs.splice(index, 0, mid1)
-            Vue.set(this.editablePolylinelatlngs, index, mid1);
+            this.editablePolylinelatlngs[index] = mid1
             this.updateLatlng();
         },
         checkForAddPointToEditablePolylineLatLangs(index) {
@@ -159,15 +166,15 @@ export default {
                 mid1 = this.calcMiddlePoint(latlang1, latlangIndex),
                 mid2 = this.calcMiddlePoint(latlangIndex, latlang2);
             this.editablePolylinelatlngs.splice(index, 0, mid1)
-            Vue.set(this.editablePolylinelatlngs, index, mid1);
+            // this.editablePolylinelatlngs[index] = mid1
             this.editablePolylinelatlngs.splice(index + 2, 0, mid2)
-            Vue.set(this.editablePolylinelatlngs, index + 2, mid2);
+            // this.editablePolylinelatlngs[index + 2] = mid2
             this.updateLatlng();
         }
     },
-    created: function () {
+    created() {
         this.editablePolylinelatlngs = this.latlngs;
-        this.updateLatlng();
+        // this.updateLatlng();
     }
 }
 </script>
